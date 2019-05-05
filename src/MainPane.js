@@ -47,7 +47,7 @@ class MainPane extends React.Component {
 			// rows.push(<CreateRow key={i} numRow={i} numCol={numCol}/>);
 			rows.push(this.createRow(i, numCol));
 		}
-		return 	<table className='mainpane' onClick={this.onMainPaneClick}>
+		return 	<table className='mainpane' onClick={this.onMainPaneClick} style={{margin: '0 auto'}}>
 					<tbody>{rows}</tbody>
 				</table>
 	}
@@ -56,7 +56,7 @@ class MainPane extends React.Component {
 		var mainPanePos = document.getElementsByClassName('mainpane')[0].getBoundingClientRect();
         var xPos = Math.floor((event.clientY-mainPanePos.y)/(mainPanePos.height/this.state.mapSize.numRow));
 		var yPos = Math.floor((event.clientX-mainPanePos.x)/(mainPanePos.width/this.state.mapSize.numCol));
-		if (this.state.mapData[xPos*this.state.mapSize.numCol+yPos].status !== 0) {
+		if (this.state.mapData[xPos*this.state.mapSize.numCol+yPos].status === this.state.playerTurn) {
 			this.setState({
 				currData: this.state.mapData[xPos*this.state.mapSize.numCol+yPos] 
 			}, () => {

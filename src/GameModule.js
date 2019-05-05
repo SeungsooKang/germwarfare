@@ -57,6 +57,7 @@ function markNextCells(clickPos, mapData) {
 	let twoNext = findTwoNextCell(clickPos, numRow, numCol);
 
 	mapData.map(function(data){
+		if (clickPos.x === data.row && clickPos.y === data.col) { data.bgStatus = 3 }
 		if (twoNext.findIndex(e => ( e.x === data.row && e.y === data.col ))!== -1 && data.status === 0) { data.bgStatus = 2 }
 		if (oneNext.findIndex(e => ( e.x === data.row && e.y === data.col ))!== -1 && data.status === 0) { data.bgStatus = 1 }
 		return data;
