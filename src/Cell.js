@@ -1,13 +1,9 @@
 import React from 'react'
 
 const playerColor = ['white', 'red', 'blue'];
-const bgColor = ['white', 'green', 'yellow'];
+const bgColor = ['white', '#f4a688', '#fff2df'];
 
 class Cell extends React.Component {
-
-	onCellClick = () => {
-		console.log('tjis');
-	}
 
     render() {
 
@@ -30,7 +26,7 @@ class Cell extends React.Component {
         };
 
         return (
-            <div className='cell' style={boxStyle} onClick={this.onCellClick}>
+            <div className='cell' style={boxStyle}>
                 { this.props.status !== 0 ? <div style={circleStyle}></div> : '' }
             </div>
         );

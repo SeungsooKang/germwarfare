@@ -1,11 +1,13 @@
 import React from 'react'
 import Cell from './Cell'
+import processGameData from './GameModule'
 
 class MainPane extends React.Component {
 
 	state = {
 		mapSize: { numRow: 7, numCol: 7 },
-		mapData: this.createPlayMap(7, 7)
+		mapData: this.createPlayMap(7, 7),
+		currData: {}
 	}
 
 	createPlayMap(numRow, numCol) {
@@ -51,17 +53,21 @@ class MainPane extends React.Component {
 
 	onMainPaneClick = (event) => {
 		var mainPanePos = document.getElementsByClassName('mainpane')[0].getBoundingClientRect();
-        var x = Math.floor((event.clientY-mainPanePos.y)/(mainPanePos.height/this.state.mapSize.numRow));
-		var y = Math.floor((event.clientX-mainPanePos.x)/(mainPanePos.width/this.state.mapSize.numCol));
-		console.log(x);
-		console.log(y);
-		console.log(this.state.mapData);
-		let tempArr = this.state.mapData;
-		tempArr[this.state.mapSize.numCol*x+y].status = 1;
-
-		this.setState({
-			mapData: tempArr
-		});
+        var xPos = Math.floor((event.clientY-mainPanePos.y)/(mainPanePos.height/this.state.mapSize.numRow));
+		var yPos = Math.floor((event.clientX-mainPanePos.x)/(mainPanePos.width/this.state.mapSize.numCol));
+		if (this.state.mapData[xPos*this.state.mapSize.numCol+yPos].status !== 0) {
+			this.setState({
+				currData: this.state.mapData[xPos*this.state.mapSize.numCol+yPos] 
+			}, () => {
+				this.setState({
+					mapData: processGameData({ x: xPos, y: yPos }, this.state.mapData, this.state.currData)
+				});	
+			});
+		} else {
+			this.setState({
+				mapData: processGameData({ x: xPos, y: yPos }, this.state.mapData, this.state.currData)
+			});
+		}
 	}
  
     render() {
