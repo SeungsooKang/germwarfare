@@ -1,4 +1,4 @@
-function clickedBlankCell(clickPos, mapData, currData) {
+function clickedBlankCell(clickPos, mapData, currData, playerTurn) {
 	let numCol = mapData.filter(data => data.row === 0).length;
 	let clickData = mapData[ clickPos.x * numCol + clickPos.y ];
 
@@ -9,14 +9,17 @@ function clickedBlankCell(clickPos, mapData, currData) {
 		case 1:
 			mapData[ clickPos.x * numCol + clickPos.y ].status = currData.status;
 			infectNextCells(clickPos, mapData, currData); 
+			playerTurn = (playerTurn === 1) ? 2 : 1;
 			clearBgStatus(mapData);
 			break;
 		default:
 			mapData[ clickPos.x * numCol + clickPos.y ].status = currData.status;
 			infectNextCells(clickPos, mapData, currData); 
 			mapData[ currData.row * numCol + currData.col ].status = 0;
+			playerTurn = (playerTurn === 1) ? 2 : 1;
 			clearBgStatus(mapData);
 	}
+	return playerTurn;
 }
 
 function clickedRedCell(clickPos, mapData) {
@@ -60,22 +63,22 @@ function markNextCells(clickPos, mapData) {
 	});
 }
 
-export default function processGameData(clickPos, mapData, currData) {
+export default function processGameData(clickPos, mapData, currData, playerTurn) {
 	let numCol = mapData.filter(data => data.row === 0).length;
 	let clickData = mapData[ clickPos.x * numCol + clickPos.y ];
 
 	switch(clickData.status) {
 		case 0:
-			clickedBlankCell(clickPos, mapData, currData);
+			playerTurn = clickedBlankCell(clickPos, mapData, currData, playerTurn);
 			break;
 		case 1:
-			clickedRedCell(clickPos, mapData);
+			if (playerTurn === 1) clickedRedCell(clickPos, mapData);
 			break;
 		default:
-			clickedBlueCell(clickPos, mapData)
+			if (playerTurn === 2) clickedBlueCell(clickPos, mapData)
 	  }
 
-	return mapData;
+	return { md: mapData, pt: playerTurn};
 }
 
 function findOneNextCell(pos, numRow, numCol){

@@ -7,6 +7,7 @@ class MainPane extends React.Component {
 	state = {
 		mapSize: { numRow: 7, numCol: 7 },
 		mapData: this.createPlayMap(7, 7),
+		playerTurn: 1,
 		currData: {}
 	}
 
@@ -59,13 +60,17 @@ class MainPane extends React.Component {
 			this.setState({
 				currData: this.state.mapData[xPos*this.state.mapSize.numCol+yPos] 
 			}, () => {
+				let rst = processGameData({ x: xPos, y: yPos }, this.state.mapData, this.state.currData, this.state.playerTurn)
 				this.setState({
-					mapData: processGameData({ x: xPos, y: yPos }, this.state.mapData, this.state.currData)
+					mapData: rst.md,
+					playerTurn: rst.pt
 				});	
 			});
 		} else {
+			let rst = processGameData({ x: xPos, y: yPos }, this.state.mapData, this.state.currData, this.state.playerTurn)
 			this.setState({
-				mapData: processGameData({ x: xPos, y: yPos }, this.state.mapData, this.state.currData)
+				mapData: rst.md,
+				playerTurn: rst.pt
 			});
 		}
 	}
