@@ -11,7 +11,8 @@ class App extends React.Component {
 		count: {
 			p1: 2,
 			p2: 2
-		}
+		},
+		playMode: 0		// 0: P vs P, 1: P vs C
 	}
 
 	updateCountState = (ct) => {
@@ -20,19 +21,25 @@ class App extends React.Component {
 		})
 	};
 
+	updatePlayModeState = (n) => {
+		this.setState({
+			playMode: n
+		})
+	};
+
     render(){
         return (
 			<div>
 				<Container style={{marginBottom: '25px'}}> 
-					<Menubar/>
+					<Menubar updatePlayMode={this.updatePlayModeState}/>
 				</Container>
 				<Container> 
 					<Row>
-						<Col xs="3"><PlayerPane playerid='Player1' status={1} count={this.state.count.p1}/></Col>          
+						<Col xs="3"><PlayerPane playerid={this.state.playMode === 0 ? 'Player1' : 'Player'} status={1} count={this.state.count.p1}/></Col>          
 						<Col xs="6">
-							<MainPane updateCellCount={this.updateCountState}/>
+							<MainPane updateCellCount={this.updateCountState} playmode={this.state.playMode}/>
 						</Col>
-						<Col xs="3"><PlayerPane playerid='Player2' status={2} count={this.state.count.p2}/></Col>
+						<Col xs="3"><PlayerPane playerid={this.state.playMode === 0 ? 'Player2' : 'Computer'} status={2} count={this.state.count.p2}/></Col>
 					</Row>
 				</Container>
 			</div>
