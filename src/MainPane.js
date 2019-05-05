@@ -8,7 +8,8 @@ class MainPane extends React.Component {
 		mapSize: { numRow: 7, numCol: 7 },
 		mapData: this.createPlayMap(7, 7),
 		playerTurn: 1,
-		currData: {}
+		currData: {},
+		count: {}
 	}
 
 	createPlayMap(numRow, numCol) {
@@ -63,18 +64,24 @@ class MainPane extends React.Component {
 				let rst = processGameData({ x: xPos, y: yPos }, this.state.mapData, this.state.currData, this.state.playerTurn)
 				this.setState({
 					mapData: rst.md,
-					playerTurn: rst.pt
-				});	
+					playerTurn: rst.pt,
+					count: rst.ct
+				}, () => {
+					this.props.updateCellCount(this.state.count);
+				});
 			});
 		} else {
 			let rst = processGameData({ x: xPos, y: yPos }, this.state.mapData, this.state.currData, this.state.playerTurn)
 			this.setState({
 				mapData: rst.md,
-				playerTurn: rst.pt
+				playerTurn: rst.pt,
+				count: rst.ct
+			}, () => {
+				this.props.updateCellCount(this.state.count);
 			});
 		}
 	}
- 
+
     render() {
         return <div>
 		{this.createMap(this.state.mapSize.numRow,this.state.mapSize.numCol)}

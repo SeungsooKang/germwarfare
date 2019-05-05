@@ -3,10 +3,6 @@ import { Jumbotron } from 'reactstrap';
 
 class PlayerPane extends React.Component {
 
-	state = {
-		count: 2
-	}
-
     render() {
 		var style = {
             border: '1px solid #c8c3cc'
@@ -28,7 +24,7 @@ class PlayerPane extends React.Component {
 			</div>
 			<div className="h-50">
 				<Jumbotron className="h-100 d-flex justify-content-center align-items-center">
-					<p style={{fontSize:'90px'}}>{this.state.count}</p>
+					<p style={{fontSize:'90px'}}>{this.props.count}</p>
 				</Jumbotron>
 			</div>
 		</div>

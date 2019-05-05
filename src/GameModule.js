@@ -64,6 +64,12 @@ function markNextCells(clickPos, mapData) {
 	});
 }
 
+function countCells(mapData) {
+	let c1 = mapData.filter(data => data.status === 1).length;
+	let c2 = mapData.filter(data => data.status === 2).length;
+	return { p1: c1, p2: c2};
+}
+
 export default function processGameData(clickPos, mapData, currData, playerTurn) {
 	let numCol = mapData.filter(data => data.row === 0).length;
 	let clickData = mapData[ clickPos.x * numCol + clickPos.y ];
@@ -78,8 +84,9 @@ export default function processGameData(clickPos, mapData, currData, playerTurn)
 		default:
 			if (playerTurn === 2) clickedBlueCell(clickPos, mapData)
 	  }
-
-	return { md: mapData, pt: playerTurn};
+	
+	let count = countCells(mapData);
+	return { md: mapData, pt: playerTurn, ct: count };
 }
 
 function findOneNextCell(pos, numRow, numCol){
