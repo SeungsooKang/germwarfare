@@ -45,10 +45,10 @@ export default class Menubar extends React.Component {
                   Options
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem onClick={() => this.props.updatePlayMode(0)}>
+                  <DropdownItem href="/vsplayer">
                     P vs P
                   </DropdownItem>
-                  <DropdownItem onClick={() => this.props.updatePlayMode(1)}>
+                  <DropdownItem href="/vscomputer">
                     P vs C
                   </DropdownItem>
                 </DropdownMenu>
