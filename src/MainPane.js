@@ -1,6 +1,7 @@
 import React from 'react'
 import Cell from './Cell'
 import processGameData from './GameModule'
+import { playComputerTurn } from './GameModule'
 
 class MainPane extends React.Component {
 
@@ -9,7 +10,8 @@ class MainPane extends React.Component {
 		mapData: this.createPlayMap(7, 7),
 		playerTurn: 1,
 		currData: {},
-		count: {}
+		count: {},
+		isPlayed: false
 	}
 
 	createPlayMap(numRow, numCol) {
@@ -54,32 +56,50 @@ class MainPane extends React.Component {
 	}
 
 	onMainPaneClick = (event) => {
-		var mainPanePos = document.getElementsByClassName('mainpane')[0].getBoundingClientRect();
-        var xPos = Math.floor((event.clientY-mainPanePos.y)/(mainPanePos.height/this.state.mapSize.numRow));
-		var yPos = Math.floor((event.clientX-mainPanePos.x)/(mainPanePos.width/this.state.mapSize.numCol));
+		let mainPanePos = document.getElementsByClassName('mainpane')[0].getBoundingClientRect();
+        let xPos = Math.floor((event.clientY-mainPanePos.y)/(mainPanePos.height/this.state.mapSize.numRow));
+		let yPos = Math.floor((event.clientX-mainPanePos.x)/(mainPanePos.width/this.state.mapSize.numCol));
+		let prevplayerTurn = this.state.playerTurn;
+
+		this.processClickInput(xPos, yPos, prevplayerTurn);
+		// console.log(this.state.isPlayed);
+		// if (this.props.playmode === 1) {
+		// 	console.log('object');
+		// }
+
+	}
+
+	processClickInput (xPos, yPos, prevplayerTurn) {
 		if (this.state.mapData[xPos*this.state.mapSize.numCol+yPos].status === this.state.playerTurn) {
 			this.setState({
 				currData: this.state.mapData[xPos*this.state.mapSize.numCol+yPos] 
 			}, () => {
-				let rst = processGameData({ x: xPos, y: yPos }, this.state.mapData, this.state.currData, this.state.playerTurn)
+				this.processInputPosition(xPos, yPos, prevplayerTurn);
+			});
+		} else {
+			this.processInputPosition(xPos, yPos, prevplayerTurn);
+		}
+	}
+
+	processInputPosition(xPos, yPos, prevplayerTurn) {
+		let rst = processGameData({ x: xPos, y: yPos }, this.state.mapData, this.state.currData, this.state.playerTurn);
+		this.setState({
+			mapData: rst.md,
+			playerTurn: rst.pt,
+			count: rst.ct,
+			isPlayed: prevplayerTurn !== rst.pt
+		}, () => {
+			this.props.updateCellCount(this.state.count);
+			if (this.props.playmode === 1 && this.state.isPlayed && this.state.playerTurn === 2) {
+				let rst = playComputerTurn(this.state.mapData, this.state.playerTurn);
 				this.setState({
 					mapData: rst.md,
 					playerTurn: rst.pt,
-					count: rst.ct
-				}, () => {
-					this.props.updateCellCount(this.state.count);
-				});
-			});
-		} else {
-			let rst = processGameData({ x: xPos, y: yPos }, this.state.mapData, this.state.currData, this.state.playerTurn)
-			this.setState({
-				mapData: rst.md,
-				playerTurn: rst.pt,
-				count: rst.ct
-			}, () => {
-				this.props.updateCellCount(this.state.count);
-			});
-		}
+					count: rst.ct,
+					isPlayed: prevplayerTurn !== rst.pt
+				}, () => { this.props.updateCellCount(this.state.count) });
+			}
+		});
 	}
 
     render() {

@@ -12,12 +12,14 @@ function clickedBlankCell(clickPos, mapData, currData, playerTurn) {
 			playerTurn = (playerTurn === 1) ? 2 : 1;
 			clearBgStatus(mapData);
 			break;
-		default:
+		case 2:
 			mapData[ clickPos.x * numCol + clickPos.y ].status = currData.status;
 			infectNextCells(clickPos, mapData, currData); 
 			mapData[ currData.row * numCol + currData.col ].status = 0;
 			playerTurn = (playerTurn === 1) ? 2 : 1;
 			clearBgStatus(mapData);
+			break;
+		default:
 	}
 	return playerTurn;
 }
@@ -89,6 +91,38 @@ export default function processGameData(clickPos, mapData, currData, playerTurn)
 	return { md: mapData, pt: playerTurn, ct: count };
 }
 
+export function playComputerTurn(mapData, playerTurn) {
+	let cells = deepClone(mapData.filter(data => data.status === playerTurn));
+	let simulationResult = [];
+	
+	cells.map(function(data){
+		// deep clone
+		let cloneMapData = deepClone(mapData);
+		clickedBlueCell({ x: data.row, y: data.col }, cloneMapData)
+		let nextCells = deepClone(cloneMapData.filter(e => e.bgStatus === 1 || e.bgStatus === 2));
+
+		nextCells.map(function(cell){
+			cloneMapData = deepClone(mapData);
+			clickedBlueCell({ x: data.row, y: data.col }, cloneMapData)
+			clickedBlankCell({ x: cell.row, y: cell.col }, cloneMapData, data, playerTurn);
+			let count = countCells(cloneMapData);
+			simulationResult.push({ mapData: cloneMapData, ct: count, diff: count.p2 - count.p1});
+			return cell;
+		})
+		return data;
+	});
+
+	let maxDiff = Math.max.apply(Math, simulationResult.map(function(rst) { return rst.diff; }));
+	let maxSimulationResult = simulationResult.filter(rst => rst.diff === maxDiff);
+	let randomIndex = getRandomInt(maxSimulationResult.length);
+	
+	return { 
+		md: maxSimulationResult[randomIndex].mapData, 
+		pt: (playerTurn === 1) ? 2 : 1, 
+		ct: maxSimulationResult[randomIndex].ct 
+	};
+}
+
 function findOneNextCell(pos, numRow, numCol){
 	let nextCells = [];
 	nextCells.push({ x: Math.min(Math.max(pos.x -1, 0),numRow-1) , y: Math.min(Math.max(pos.y -1, 0),numCol-1) });
@@ -123,4 +157,12 @@ function findTwoNextCell(pos, numRow, numCol){
 	nextCells.push({ x: Math.min(Math.max(pos.x +2, 0),numRow-1) , y: Math.min(Math.max(pos.y +1, 0),numCol-1) });
 	nextCells.push({ x: Math.min(Math.max(pos.x +2, 0),numRow-1) , y: Math.min(Math.max(pos.y +2, 0),numCol-1) });
 	return nextCells;
+}
+
+function deepClone(obj) {
+	return JSON.parse(JSON.stringify(obj));
+}
+
+function getRandomInt(max) {
+	return Math.floor(Math.random() * Math.floor(max));
 }
