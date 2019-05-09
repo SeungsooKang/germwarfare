@@ -5,10 +5,25 @@ import './App.css';
 import Menubar from './Menubar'
 import VsPlayer from './VsPlayer';
 import VsComputer from './VsComputer';
+// import AlerLine from './AlertLine';
 
 class App extends React.Component {
 
+	// state = {
+	// 	alertText: ''
+	// }
+
+	// updateAlertText = (line) => {
+	// 	this.setState({
+	// 		alertText: line
+	// 	})
+	// };
+
     render(){
+		// let alertBox = this.state.alertText !== '' ? 
+		// 	<Container style={{marginTop: '25px'}}> 
+		// 		<AlerLine textline={this.state.alertText}/>
+		// 	</Container> : null;
         return (
 			<div>
 				<Container style={{marginBottom: '25px'}}> 
@@ -21,6 +36,7 @@ class App extends React.Component {
 						<Route path="/vscomputer" component={VsComputer} />
 					</div>
 				</Router>
+				{/* {alertBox} */}
 			</div>
 		)
 	}

@@ -40,7 +40,9 @@ function infectNextCells(clickPos, mapData, currData) {
 	let oneNext = findOneNextCell(clickPos, numRow, numCol);
 
 	mapData.map(function(data){
-		if (oneNext.findIndex(e => ( e.x === data.row && e.y === data.col ))!== -1 && data.status !== 0) { data.status = currData.status }
+		if (oneNext.findIndex(e => ( e.x === data.row && e.y === data.col ))!== -1 && data.status !== 0) {
+			data.status = currData.status 
+		}
 		return data;
 	});
 }

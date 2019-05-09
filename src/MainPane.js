@@ -47,7 +47,6 @@ class MainPane extends React.Component {
 	createMap = (numRow, numCol) => {
 		var rows = [];
 		for (var i = 0; i < numRow; i++) {
-			// rows.push(<CreateRow key={i} numRow={i} numCol={numCol}/>);
 			rows.push(this.createRow(i, numCol));
 		}
 		return 	<table className='mainpane' onClick={this.onMainPaneClick} style={{margin: '0 auto'}}>
@@ -60,13 +59,7 @@ class MainPane extends React.Component {
         let xPos = Math.floor((event.clientY-mainPanePos.y)/(mainPanePos.height/this.state.mapSize.numRow));
 		let yPos = Math.floor((event.clientX-mainPanePos.x)/(mainPanePos.width/this.state.mapSize.numCol));
 		let prevplayerTurn = this.state.playerTurn;
-
-		this.processClickInput(xPos, yPos, prevplayerTurn);
-		// console.log(this.state.isPlayed);
-		// if (this.props.playmode === 1) {
-		// 	console.log('object');
-		// }
-
+		if (!this.props.gameEnd) this.processClickInput(xPos, yPos, prevplayerTurn);
 	}
 
 	processClickInput (xPos, yPos, prevplayerTurn) {
