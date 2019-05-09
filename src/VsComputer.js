@@ -36,7 +36,7 @@ class VsComputer extends React.Component {
 					<Row>
 						<Col xs="3"><PlayerPane playerid={this.state.playMode === 0 ? 'Player1' : 'Player'} status={1} count={this.state.count.p1}/></Col>          
 						<Col xs="6">
-						<MainPane updateCellCount={this.updateCountState} playmode={this.state.playMode} gameEnd={this.state.gameStatus.isGameEnded}/>
+							<MainPane updateCellCount={this.updateCountState} playmode={this.state.playMode} gameEnd={this.state.gameStatus.isGameEnded}/>
 						</Col>
 						<Col xs="3"><PlayerPane playerid={this.state.playMode === 0 ? 'Player2' : 'Computer'} status={2} count={this.state.count.p2}/></Col>
 					</Row>

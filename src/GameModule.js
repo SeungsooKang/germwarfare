@@ -102,15 +102,16 @@ export function playComputerTurn(mapData, playerTurn) {
 		let cloneMapData = deepClone(mapData);
 		clickedBlueCell({ x: data.row, y: data.col }, cloneMapData)
 		let nextCells = deepClone(cloneMapData.filter(e => e.bgStatus === 1 || e.bgStatus === 2));
-
-		nextCells.map(function(cell){
-			cloneMapData = deepClone(mapData);
-			clickedBlueCell({ x: data.row, y: data.col }, cloneMapData)
-			clickedBlankCell({ x: cell.row, y: cell.col }, cloneMapData, data, playerTurn);
-			let count = countCells(cloneMapData);
-			simulationResult.push({ mapData: cloneMapData, ct: count, diff: count.p2 - count.p1});
-			return cell;
-		})
+		if(nextCells){
+			nextCells.map(function(cell){
+				cloneMapData = deepClone(mapData);
+				clickedBlueCell({ x: data.row, y: data.col }, cloneMapData)
+				clickedBlankCell({ x: cell.row, y: cell.col }, cloneMapData, data, playerTurn);
+				let count = countCells(cloneMapData);
+				simulationResult.push({ mapData: cloneMapData, ct: count, diff: count.p2 - count.p1});
+				return cell;
+			})
+		}
 		return data;
 	});
 
@@ -119,9 +120,9 @@ export function playComputerTurn(mapData, playerTurn) {
 	let randomIndex = getRandomInt(maxSimulationResult.length);
 	
 	return { 
-		md: maxSimulationResult[randomIndex].mapData, 
+		md: maxSimulationResult ? maxSimulationResult[randomIndex].mapData : mapData, 
 		pt: (playerTurn === 1) ? 2 : 1, 
-		ct: maxSimulationResult[randomIndex].ct 
+		ct: maxSimulationResult ? maxSimulationResult[randomIndex].ct : countCells(mapData)
 	};
 }
 

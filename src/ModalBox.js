@@ -20,19 +20,22 @@ class ModalBox extends React.Component {
   render() {
 	let gameResult = this.props.playmode === 0 ? 	
 			<div>
-				{ this.props.countP1 > this.props.countP2 ? <p>Player1 won!</p> : <p>Player2 won!</p> }
 				<p>Player1: {this.props.countP1}</p>
 				<p>Player2: {this.props.countP2}</p>
 			</div> :
 			<div>
-				{ this.props.countP1 > this.props.countP2 ? <p>Player won!</p> : <p>Computer won!</p> }
 				<p>Player: {this.props.countP1}</p>
 				<p>Computer: {this.props.countP2}</p>
 			</div>
     return (
       <div>
         <Modal isOpen={this.props.isOpen} toggle={this.toggle} className={this.props.className}>
-			<ModalHeader>Germ Warfare</ModalHeader>
+			<ModalHeader>
+				{ this.props.playmode === 0 ? 
+					this.props.countP1 > this.props.countP2 ? 'Player1 won!' : 'Player2 won!' :
+					this.props.countP1 > this.props.countP2 ? 'Player won!'  : 'Computer won!' 
+				}
+			</ModalHeader>
 			<ModalBody>
 				{gameResult}
 			</ModalBody>

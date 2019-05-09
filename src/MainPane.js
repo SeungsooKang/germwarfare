@@ -83,7 +83,7 @@ class MainPane extends React.Component {
 			isPlayed: prevplayerTurn !== rst.pt
 		}, () => {
 			this.props.updateCellCount(this.state.count);
-			if (this.props.playmode === 1 && this.state.isPlayed && this.state.playerTurn === 2) {
+			if (this.props.playmode === 1 && this.state.isPlayed && this.state.playerTurn === 2 && this.state.count.p2 !== 0) {
 				let rst = playComputerTurn(this.state.mapData, this.state.playerTurn);
 				this.setState({
 					mapData: rst.md,
