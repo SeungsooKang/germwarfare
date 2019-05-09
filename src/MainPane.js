@@ -3,6 +3,10 @@ import Cell from './Cell'
 import processGameData from './GameModule'
 import { playComputerTurn } from './GameModule'
 
+const sleep = (milliseconds) => {
+	return new Promise(resolve => setTimeout(resolve, milliseconds))
+}
+
 class MainPane extends React.Component {
 
 	state = {
@@ -85,12 +89,14 @@ class MainPane extends React.Component {
 			this.props.updateCellCount(this.state.count);
 			if (this.props.playmode === 1 && this.state.isPlayed && this.state.playerTurn === 2 && this.state.count.p2 !== 0) {
 				let rst = playComputerTurn(this.state.mapData, this.state.playerTurn);
-				this.setState({
-					mapData: rst.md,
-					playerTurn: rst.pt,
-					count: rst.ct,
-					isPlayed: prevplayerTurn !== rst.pt
-				}, () => { this.props.updateCellCount(this.state.count) });
+				sleep(500).then(() => { 
+					this.setState({
+						mapData: rst.md,
+						playerTurn: rst.pt,
+						count: rst.ct,
+						isPlayed: prevplayerTurn !== rst.pt
+					}, () => { this.props.updateCellCount(this.state.count) });
+				});
 			}
 		});
 	}

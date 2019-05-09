@@ -23,7 +23,7 @@ class VsPlayer extends React.Component {
 			count: ct
 		}, () => { 
 			this.setState({
-				gameStatus: { isGameEnded: this.state.count.p1 === 0 || this.state.count.p2 === 0 || this.state.count.p1 + this.state.count.p2 === 47,
+				gameStatus: { isGameEnded: this.state.count.p1 === 0 || this.state.count.p2 === 0 || this.state.count.p1 + this.state.count.p2 === 49,
 				winner: this.state.count.p1 > this.state.count.p2 ? 1 : 2 }
 			})
 		})
