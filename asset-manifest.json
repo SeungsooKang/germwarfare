@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/germwarfare/static/css/main.a00b02ba.chunk.css",
-    "main.js": "/germwarfare/static/js/main.f21463d7.chunk.js",
-    "main.js.map": "/germwarfare/static/js/main.f21463d7.chunk.js.map",
+    "main.js": "/germwarfare/static/js/main.d910b472.chunk.js",
+    "main.js.map": "/germwarfare/static/js/main.d910b472.chunk.js.map",
     "runtime~main.js": "/germwarfare/static/js/runtime~main.6e896e74.js",
     "runtime~main.js.map": "/germwarfare/static/js/runtime~main.6e896e74.js.map",
     "static/css/2.266e55a5.chunk.css": "/germwarfare/static/css/2.266e55a5.chunk.css",
     "static/js/2.dfdf1362.chunk.js": "/germwarfare/static/js/2.dfdf1362.chunk.js",
     "static/js/2.dfdf1362.chunk.js.map": "/germwarfare/static/js/2.dfdf1362.chunk.js.map",
     "index.html": "/germwarfare/index.html",
-    "precache-manifest.e9792eb919bdadc2b5a2505feb1342c0.js": "/germwarfare/precache-manifest.e9792eb919bdadc2b5a2505feb1342c0.js",
+    "precache-manifest.ef849ad4514577fd01d4a743fb2bd2fa.js": "/germwarfare/precache-manifest.ef849ad4514577fd01d4a743fb2bd2fa.js",
     "service-worker.js": "/germwarfare/service-worker.js",
     "static/css/2.266e55a5.chunk.css.map": "/germwarfare/static/css/2.266e55a5.chunk.css.map",
     "static/css/main.a00b02ba.chunk.css.map": "/germwarfare/static/css/main.a00b02ba.chunk.css.map"
