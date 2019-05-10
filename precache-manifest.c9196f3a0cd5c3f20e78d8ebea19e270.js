@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2c2eeee45e7df5ddaf2b0028de555f3f",
+    "revision": "27a68a87e312ef150779792fc8f7281e",
     "url": "/germwarfare/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/germwarfare/static/css/2.266e55a5.chunk.css"
   },
   {
-    "revision": "500d8deb973c6af6ebc2",
+    "revision": "5805981d50e326a34b3c",
     "url": "/germwarfare/static/css/main.a00b02ba.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/germwarfare/static/js/2.dfdf1362.chunk.js"
   },
   {
-    "revision": "500d8deb973c6af6ebc2",
-    "url": "/germwarfare/static/js/main.a409d351.chunk.js"
+    "revision": "5805981d50e326a34b3c",
+    "url": "/germwarfare/static/js/main.8377865c.chunk.js"
   },
   {
     "revision": "9ef8d68a8568c95c6b64",
