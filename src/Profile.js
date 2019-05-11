@@ -10,7 +10,7 @@ export default class Profile extends React.Component {
       			</Button>
 				<UncontrolledPopover trigger="click" placement="bottom" target="Popover">
 					<PopoverHeader>John Kang</PopoverHeader>
-					<PopoverBody>Email: seungsoo@sheridancollege.ca <br/> Program: Software Development and Network Engineering</PopoverBody>
+					<PopoverBody>Email: seungsoo@sheridancollege.ca <br/> Program: Software Development</PopoverBody>
 				</UncontrolledPopover>
 			</div>
 		);
