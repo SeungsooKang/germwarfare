@@ -120,9 +120,9 @@ export function playComputerTurn(mapData, playerTurn) {
 	let randomIndex = getRandomInt(maxSimulationResult.length);
 	
 	return { 
-		md: maxSimulationResult ? maxSimulationResult[randomIndex].mapData : mapData, 
+		md: maxSimulationResult.length !==0 ? maxSimulationResult[randomIndex].mapData : mapData, 
 		pt: (playerTurn === 1) ? 2 : 1, 
-		ct: maxSimulationResult ? maxSimulationResult[randomIndex].ct : countCells(mapData)
+		ct: maxSimulationResult.length !==0 ? maxSimulationResult[randomIndex].ct : countCells(mapData)
 	};
 }
 
